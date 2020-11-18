@@ -179,7 +179,7 @@ function renderQuizApp() {
 
   if (store.quizStarted === false) {
     html = generateStartPage();
-    $('main').html(html);
+    $('main').html(`${html}`);
   } else if (store.questionNumber > store.questions.length) {
     html = generateScorePage();
     $('main').html(html);
