@@ -13,7 +13,7 @@ const store = {
         '1950'
       ],
       correctAnswer: '2430',
-      funFact: 'Each team play 162 games in a year, the 2430 number factors in overlap in each games 162 schedule'
+      funFact: 'Each team play 162 games in a year, the 2430 number factors in overlap in each games 162 schedule.  The most recent exception to this is the 2020 season, where COVID-19 shortened the regular season to 60 games per team'
     },
     {
       question: 'Which award is for the best pitcher in each division?',
@@ -24,7 +24,7 @@ const store = {
         'Edgar Martinez'
       ],
       correctAnswer: 'Cy Young',
-      funFact: 'Despite having the pitching award named after him, Cy Young is not in the top 50 in ERA'
+      funFact: 'Despite having the pitching award named after him, Cy Young is not in the top 50 in ERA (Earned Run Average).  He still holds the record for most wins of all time by a pitcher'
     },
     {
       question: 'Which team was originally the Montreal Expos?',
@@ -35,7 +35,7 @@ const store = {
         'Seattle Mariners'
       ],
       correctAnswer: 'Washington Nationals',
-      funFact: 'Fun Fact'
+      funFact: 'Many consider the 1994-45 Major League Baseball Strike to be the down fall of of the Expos, having the best record in baseball (74-40) before the stoppage.  Fans lost interest and Montreal never recovered, leading to the move and name change in 2004'
     },
     {
       question: 'Which player has the current all time batting average (minimum 1000 games played and 1000 at bats)?',
@@ -57,7 +57,7 @@ const store = {
         'Los Angeles Dodgers'
       ],
       correctAnswer: 'Los Angeles Dodgers',
-      funFact: 'Fun Fact'
+      funFact: 'The Dodgers while holding the record for most Pennant wins, they also hold the record for World Series losses with 14 (although the Yankees are not too far behind with 13)'
     }
   ],
   quizStarted: false,
@@ -99,23 +99,21 @@ function generateStartPage() {
 function generateQuestionPage(questionObject) {
   let answers = questionObject.answers.map((answer, idx) => {
     if (idx === 0) {
-      return `<div class="twoRadio"><input type="radio" id="answer${idx}" name="answer" value="${answer}" required>
+      return `<div class="spaceBottom"><input type="radio" id="answer${idx}" name="answer" value="${answer}" required>
       <label for="answer${idx}">${answer}</label></div>`;
     }
-    return `<div class="twoRadio"><input type="radio" id="answer${idx}" name="answer" value="${answer}">
+    return `<div class="spaceBottom"><input type="radio" id="answer${idx}" name="answer" value="${answer}">
       <label for="answer${idx}">${answer}</label></div>`;
   });
 
   return `<div class="page">
       <div class="side-by-side">
-      <h3>Question ${store.questionNumber} of ${store.questions.length}</h3>
-      <h3>Current Grade: ${store.score()}%</h3>
+        <h3>Question ${store.questionNumber} of ${store.questions.length}</h3>
+        <h3>Current Grade: ${store.score()}%</h3>
       </div>
       <h2>${questionObject.question}</h2>
       <form class="answers">
-        <div>
           ${answers.join("")}
-        </div>
         <button class="submitOptions" type="submit">Submit</button>
       </form>
     </div>`;
@@ -125,9 +123,15 @@ function generateCorrectPage(questionObject) {
   return `<div class="page">
       <h2>Correct!</h2>
       <div class="shelf">
-        <p class="funFact">Fun Fact! ${questionObject.funFact}</p>
-        <p class="score">You have answered ${store.totalCorrect} correctly,
-        and ${store.totalIncorrect} incorrectly</p>
+      <div class="funFact flex-two">
+        <p>Fun Fact!</p>
+        <p>${questionObject.funFact}</p>
+      </div>
+      <div class="score flex-one">
+        <p>You have answered:</p>
+        <p class="center">${store.totalCorrect} correctly</p>
+        <p class="center">${store.totalIncorrect} incorrectly</p>
+      </div>
       </div>
       <button class="nextQuestion">Next</button>
     </div>`;
@@ -136,9 +140,14 @@ function generateCorrectPage(questionObject) {
 function generateIncorrectPage(questionObject) {
   return `<div class="page">
       <h2>Incorrect!</h2>
-      <p>The correct answer was: ${questionObject.correctAnswer}</p>
-      <p class="incorrectScore">You have answered ${store.totalCorrect} correctly,
-        and ${store.totalIncorrect} incorrectly</p>
+      <div class ="shelf">
+      <p class="score">The correct answer was: ${questionObject.correctAnswer}</p>
+      <div class="score flex-one">
+        <p>You have answered:</p>
+        <p class="center">${store.totalCorrect} correctly</p>
+        <p class="center">${store.totalIncorrect} incorrectly</p>
+      </div>
+      </div>
       <button class="nextQuestion">Next</button>
     </div>`;
 }
@@ -146,10 +155,9 @@ function generateIncorrectPage(questionObject) {
 function generateScorePage() {
   return `<div class="page">
       <h2>It's Over!</h2>
-      <h3>Your score: (Score ${store.score()}%)</h3>
-      <p class="incorrectScore">We calculated this number by taking ${store.totalCorrect} (your
-        correct answers)/${store.questions.length}(Total Number of questions)</p>
-      <button class="startOver">Play Again?</button>
+      <h2>Final score: ${store.score()}%</h2>
+      <img src="Images/outfield.jpg" alt="I just want to use your love TONIIIIIIGIHT">
+      <button class="startOver">Again?</button>
     </div>`;
 }
 

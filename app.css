@@ -26,13 +26,13 @@ header, h2, h3, h6{
 
 button{
   border-radius: 5px;
-  margin-left: 40px;
+  margin-left: 15%;
 }
 
 header{
   background-color: #9b7653;
-  margin-left: 25%;
-  margin-right: 25%;
+  margin-left: 5%;
+  margin-right: 5%;
   padding: 1px;
   box-shadow: 2px 2px 2px #001011;
 }
@@ -41,10 +41,12 @@ h1, h2, h3, h6, label, p{
   color: #001011;
 }
 
-.twoRadio{
-  float: left;
+img{
+  border-radius: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   width: 50%;
-  margin-bottom: 20px;
 }
 
 .row-shelf{
@@ -54,8 +56,8 @@ h1, h2, h3, h6, label, p{
 
 .page{
   box-shadow: 2px 2px 2px #001011;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
   margin-bottom: 10px;
   padding: 15px;
   background-color: #9b7653;
@@ -65,22 +67,23 @@ h1, h2, h3, h6, label, p{
 .side-by-side{
   display: flex;
   justify-content: space-evenly;
-  background-color: #587291;
 }
 
-.answers, h2, .side-by-side{
+.answers, h2, .side-by-side, .funFact, .score{
   background-color: #587291;
   border-radius: 25px;
   margin: 10px;
   padding: 10px;
   box-shadow: 2px 2px 2px #001011;
+  font-weight: bold;
 }
 
-.funFact, .score{
-  box-shadow: 2px 2px 2px #001011;
-  background-color: #587291;
-  border-radius: 25px;
-  padding: 10px;
+.funFact{
+  margin-right: 20px;
+}
+
+.spaceBottom{
+  margin-bottom: 5px;
 }
 
 .incorrectScore{
@@ -92,6 +95,14 @@ h1, h2, h3, h6, label, p{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.flex-two{
+  flex: 2;
+}
+
+.flex-one{
+  flex: 1;
 }
 
 @media all and (min-width: 800px){
