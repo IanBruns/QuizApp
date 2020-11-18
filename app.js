@@ -98,13 +98,20 @@ function generateStartPage() {
 
 function generateQuestionPage(questionObject) {
   let answers = questionObject.answers.map((answer, idx) => {
-    return `<input type="radio" id="answer${idx}" name="answer" value="${answer}">
-      <label for="answer${idx}">${answer}</label><br>`;
+    if (idx === 0) {
+      return `<div class="twoRadio"><input type="radio" id="answer${idx}" name="answer" value="${answer}" required>
+      <label for="answer${idx}">${answer}</label></div>`;
+    }
+    return `<div class="twoRadio"><input type="radio" id="answer${idx}" name="answer" value="${answer}">
+      <label for="answer${idx}">${answer}</label></div>`;
   });
 
   return `<div class="page">
-      <h2>Question ${store.questionNumber} of ${store.questions.length}</h2>
-      <h6>${questionObject.question}</h6>
+      <div class="side-by-side">
+      <h3>Question ${store.questionNumber} of ${store.questions.length}</h3>
+      <h3>Current Grade: ${store.score()}%</h3>
+      </div>
+      <h2>${questionObject.question}</h2>
       <form class="answers">
         <div>
           ${answers.join("")}
@@ -117,7 +124,7 @@ function generateQuestionPage(questionObject) {
 function generateCorrectPage(questionObject) {
   return `<div class="page">
       <h2>Correct!</h2>
-      <div class="row-shelf">
+      <div class="shelf">
         <p class="funFact">Fun Fact! ${questionObject.funFact}</p>
         <p class="score">You have answered ${store.totalCorrect} correctly,
         and ${store.totalIncorrect} incorrectly</p>

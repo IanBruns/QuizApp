@@ -6,32 +6,90 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+body{
+  background-image: url(Images/grass.jpg);
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-.page{
-  flex-direction: column;
-  /* position:absolute; */
-  border: 2px solid #000;
-  margin-left: 25%;
-  margin-right: 25%;
-  margin-bottom: 10px;
-  padding: 15px;
+button{
+  margin: 5px;
+  max-width: 70px;
+  margin-left: 0px;
+  max-height: 30px;
 }
 
 header, h2, h3, h6{
   text-align: center;
-} 
+  margin-bottom: 10px;
+  border-radius: 25px;;
+}
+
+button{
+  border-radius: 5px;
+  margin-left: 40px;
+}
+
+header{
+  background-color: #9b7653;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 1px;
+  box-shadow: 2px 2px 2px #001011;
+}
+
+h1, h2, h3, h6, label, p{
+  color: #001011;
+}
+
+.twoRadio{
+  float: left;
+  width: 50%;
+  margin-bottom: 20px;
+}
 
 .row-shelf{
   display: flex;
   flex-direction: row;
-  /* justify-content: space-between; */
 }
 
-.photo, .funFact, .score{
-  border: 2px solid #000;
+.page{
+  box-shadow: 2px 2px 2px #001011;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 10px;
+  padding: 15px;
+  background-color: #9b7653;
+  border-radius: 25px;
+}
+
+.side-by-side{
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #587291;
+}
+
+.answers, h2, .side-by-side{
+  background-color: #587291;
+  border-radius: 25px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 2px 2px 2px #001011;
+}
+
+.funFact, .score{
+  box-shadow: 2px 2px 2px #001011;
+  background-color: #587291;
+  border-radius: 25px;
+  padding: 10px;
 }
 
 .incorrectScore{
   text-align: center;
-  border: 2px solid #000;
+  box-shadow: 2px 2px 2px #001011;
+}
+
+.shelf{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
