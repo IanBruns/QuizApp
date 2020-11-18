@@ -5,26 +5,59 @@ const store = {
   // 5 or more questions are required
   questions: [
     {
-      question: 'What color is broccoli?',
+      question: 'How many regular season games are played in a year total?',
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'green'
+        '162',
+        '584',
+        '2430',
+        '1950'
       ],
-      correctAnswer: 'green',
-      funFact: 'it actually tastes pretty good'
+      correctAnswer: '2430',
+      funFact: 'Each team play 162 games in a year, the 2430 number factors in overlap in each games 162 schedule'
     },
     {
-      question: 'What is the current year?',
+      question: 'Which award is for the best pitcher in each division?',
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        'Hank Aaron',
+        'Cy Young',
+        'Roberto Clemente',
+        'Edgar Martinez'
       ],
-      correctAnswer: '2019',
-      funFact: 'it is actually 2020'
+      correctAnswer: 'Cy Young',
+      funFact: 'Despite having the pitching award named after him, Cy Young is not in the top 50 in ERA'
+    },
+    {
+      question: 'Which team was originally the Montreal Expos?',
+      answers: [
+        'Colorado Rockies',
+        'Miami Marlins',
+        'Washington Nationals',
+        'Seattle Mariners'
+      ],
+      correctAnswer: 'Washington Nationals',
+      funFact: 'Fun Fact'
+    },
+    {
+      question: 'Which player has the current all time batting average (minimum 1000 games played and 1000 at bats)?',
+      answers: [
+        'Pete Rose',
+        'Ty Cobb',
+        'Babe Ruth',
+        'Billy Hamilton'
+      ],
+      correctAnswer: 'Ty Cobb',
+      funFact: 'Ty Cobb\'s batting average is all the more impressive since he played during the "dead ball" era of baseball, where rules favored pitchers'
+    },
+    {
+      question: 'Which team has the most Pennant wins?',
+      answers: [
+        'New York Yankees',
+        'Boston Red Sox',
+        'San Francisco Giants',
+        'Los Angeles Dodgers'
+      ],
+      correctAnswer: 'Los Angeles Dodgers',
+      funFact: 'Fun Fact'
     }
   ],
   quizStarted: false,
@@ -64,23 +97,17 @@ function generateStartPage() {
 }
 
 function generateQuestionPage(questionObject) {
+  let answers = questionObject.answers.map((answer, idx) => {
+    return `<input type="radio" id="answer${idx}" name="answer" value="${answer}">
+      <label for="answer${idx}">${answer}</label><br>`;
+  });
+
   return `<div class="page">
       <h2>Question ${store.questionNumber} of ${store.questions.length}</h2>
       <h6>${questionObject.question}</h6>
       <form class="answers">
         <div>
-          <div class="row-shelf">
-            <input name="answer" type="radio" value=${questionObject.answers[0]} required>
-            <label for="one">${questionObject.answers[0]}</label>
-            <input name="answer" type="radio" value=${questionObject.answers[1]}>
-            <label for="two">${questionObject.answers[1]}</label>
-          </div>
-          <div class='row-shelf'>
-            <input name="answer" type="radio" value=${questionObject.answers[2]}>
-            <label for="three">${questionObject.answers[2]}</label>
-            <input name="answer" type="radio" value=${questionObject.answers[3]}>
-            <label for="four">${questionObject.answers[3]}</label>
-          </div>
+          ${answers.join("")}
         </div>
         <button class="submitOptions" type="submit">Submit</button>
       </form>
@@ -88,14 +115,12 @@ function generateQuestionPage(questionObject) {
 }
 
 function generateCorrectPage(questionObject) {
-  //To-do: Photos
   return `<div class="page">
       <h2>Correct!</h2>
       <div class="row-shelf">
         <p class="funFact">Fun Fact! ${questionObject.funFact}</p>
         <p class="score">You have answered ${store.totalCorrect} correctly,
         and ${store.totalIncorrect} incorrectly</p>
-        <p class="photo">A photo will go here</p>
       </div>
       <button class="nextQuestion">Next</button>
     </div>`;
@@ -128,18 +153,17 @@ function generateScorePage() {
 function addCorrect(questionObject) {
   //append the correct page option
   let html = generateCorrectPage(questionObject);
-
   $('main').append(html);
 }
 
 function addIncorrect(questionObject) {
   //append the incorrect page option
   let html = generateIncorrectPage(questionObject);
-
   $('main').append(html);
 }
 
 function shuffleQuestions(array) {
+  //A simple array shuffle using the Fisher-Yates shuffle algorithm
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
     [array[i], array[j]] = [array[j], array[i]];
@@ -155,9 +179,6 @@ function renderQuizApp() {
 
   if (store.quizStarted === false) {
     html = generateStartPage();
-    $('main').html(html);
-  } else if (store.questionNumber === 1) {
-    html = generateQuestionPage(store.questions[store.questionIndex]);
     $('main').html(html);
   } else if (store.questionNumber > store.questions.length) {
     html = generateScorePage();
@@ -179,7 +200,6 @@ function startQuizApp() {
     e.preventDefault();
 
     shuffleQuestions(store.questions);
-
     for (let i = 0; i < store.questions.length; i++) {
       shuffleQuestions(store.questions[i].answers);
     }
@@ -197,6 +217,7 @@ function submitAnswer() {
     $('.submitOptions').remove();
 
     const playerAnswer = $('input[name="answer"]:checked').val();
+
     if (playerAnswer === store.questions[store.questionIndex].correctAnswer) {
       store.totalCorrect++;
       addCorrect(store.questions[store.questionIndex]);
@@ -219,7 +240,7 @@ function clickNext() {
 
 function playAgain() {
   //After the quiz is done, the player has the option to play again
-  //by changing the array and going forward
+  //by resetting the array and rendering
   $('main').on('click', '.startOver', function (e) {
     e.preventDefault();
 

@@ -28,8 +28,6 @@ header, h2, h3, h6{
 }
 
 .photo, .funFact, .score{
-  width: 100px;
-  height: 100px;;
   border: 2px solid #000;
 }
 
